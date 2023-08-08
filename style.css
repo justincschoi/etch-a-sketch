@@ -24,3 +24,7 @@ body {
 .hover {
     border: 1px solid yellow;
 }
+
+.fill {
+    background-color: black;
+}
