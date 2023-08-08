@@ -18,5 +18,9 @@ body {
 
 .grid-div {
     border: 1px solid black;
+    box-sizing: border-box;
+}
 
+.hover {
+    border: 1px solid yellow;
 }
