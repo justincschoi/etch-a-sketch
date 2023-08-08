@@ -21,15 +21,36 @@ function createGrid() {
 createGrid();
 
 const gridDivs = document.querySelectorAll('.grid-div');
+let mouseDown = false;
 
-function highlightOnHover() {
-    this.classList.add('hover');
+function handleMouseOver() {
+    if (mouseDown) {
+        this.classList.add('fill');
+        this.classList.add('hover');
+    } else {
+        this.classList.add('hover');
+    }
 }
 
-function removeHighlight() {
+function handleMouseOut() {
     this.classList.remove('hover');
 }
+
+function fillGrid(e) {
+    e.preventDefault(); // prevents mousedown drag on a filled grid
+    this.classList.add('fill');
+}
+
+gridContainer.addEventListener("mousedown", () => {
+    mouseDown = true;
+})
+
+gridContainer.addEventListener("mouseup", () => {
+    mouseDown = false;
+})
+
 gridDivs.forEach((gridDiv) => {
-    gridDiv.addEventListener("mouseover", highlightOnHover);
-    gridDiv.addEventListener("mouseout", removeHighlight);
+    gridDiv.addEventListener("mouseover", handleMouseOver);
+    gridDiv.addEventListener("mouseout", handleMouseOut);
+    gridDiv.addEventListener("mousedown", fillGrid);
 });
