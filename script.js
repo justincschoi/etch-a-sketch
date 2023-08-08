@@ -7,11 +7,11 @@ function createGrid() {
 
         for (let j = 0; j < 16; j++) {
             const width = 300 / 16; // width and height are same for grid-container
-            const column = document.createElement('div');
-            column.classList.add('grid-div');
-            column.style.width = `${width}px`;
-            column.style.height = `${width}px`;
-            row.appendChild(column);
+            const square = document.createElement('div');
+            square.classList.add('grid-div');
+            square.style.width = `${width}px`;
+            square.style.height = `${width}px`;
+            row.appendChild(square);
         }
 
         gridContainer.appendChild(row);
@@ -19,3 +19,17 @@ function createGrid() {
 };
 
 createGrid();
+
+const gridDivs = document.querySelectorAll('.grid-div');
+
+function highlightOnHover() {
+    this.classList.add('hover');
+}
+
+function removeHighlight() {
+    this.classList.remove('hover');
+}
+gridDivs.forEach((gridDiv) => {
+    gridDiv.addEventListener("mouseover", highlightOnHover);
+    gridDiv.addEventListener("mouseout", removeHighlight);
+});
