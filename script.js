@@ -40,6 +40,7 @@ erase.addEventListener("click", eraseDiv);
 
 function eraseDiv() {
     etch = false;
+    highlightSelection(etch);
 };
 
 const draw = document.getElementById('draw');
@@ -48,7 +49,21 @@ draw.addEventListener("click", drawDiv);
 
 function drawDiv() {
     etch = true;
+    highlightSelection(etch);
 };
+
+function highlightSelection(etch) {
+    if (etch) {
+        draw.classList.add('selected');
+        erase.classList.remove('selected');
+    }
+    else {
+        erase.classList.add('selected');
+        draw.classList.remove('selected');
+    }
+};
+
+highlightSelection(etch); // highlights default draw button
 
 function handleMouseOver() {
     if (mouseDown && etch) {
