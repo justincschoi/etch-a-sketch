@@ -1,4 +1,10 @@
 const gridContainer = document.querySelector('.grid-container');
+const clear = document.getElementById('clear');
+const erase = document.getElementById('erase');
+const draw = document.getElementById('draw');
+
+let mouseDown = false;
+let etch = true;
 
 function createGrid() {
     for (let i = 0; i < 16; i++) {
@@ -21,35 +27,11 @@ function createGrid() {
 createGrid();
 
 const gridDivs = document.querySelectorAll('.grid-div');
-let mouseDown = false;
-let etch = true;
-
-const clear = document.getElementById('clear');
 
 function clearGrid() {
     gridDivs.forEach((gridDiv) => {
         gridDiv.classList.remove('fill');
     })
-};
-
-clear.addEventListener("click", clearGrid);
-
-const erase = document.getElementById('erase');
-
-erase.addEventListener("click", eraseDiv);
-
-function eraseDiv() {
-    etch = false;
-    highlightSelection(etch);
-};
-
-const draw = document.getElementById('draw');
-
-draw.addEventListener("click", drawDiv);
-
-function drawDiv() {
-    etch = true;
-    highlightSelection(etch);
 };
 
 function highlightSelection(etch) {
@@ -63,7 +45,15 @@ function highlightSelection(etch) {
     }
 };
 
-highlightSelection(etch); // highlights default draw button
+function eraseDiv() {
+    etch = false;
+    highlightSelection(etch);
+};
+
+function drawDiv() {
+    etch = true;
+    highlightSelection(etch);
+};
 
 function handleMouseOver() {
     if (mouseDown && etch) {
@@ -91,6 +81,12 @@ function fillGrid(e) {
         this.classList.remove('fill');
     }
 };
+
+highlightSelection(etch); // highlights default draw button
+
+clear.addEventListener("click", clearGrid);
+erase.addEventListener("click", eraseDiv);
+draw.addEventListener("click", drawDiv);
 
 gridContainer.addEventListener("mousedown", () => {
     mouseDown = true;
