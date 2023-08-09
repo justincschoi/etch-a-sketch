@@ -28,3 +28,7 @@ body {
 .fill {
     background-color: black;
 }
+
+.selected {
+    background-color: aqua;
+}
