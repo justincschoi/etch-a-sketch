@@ -41,6 +41,16 @@ function fillGrid(e) {
     this.classList.add('fill');
 }
 
+const clear = document.getElementById('clear');
+
+function clearGrid() {
+    gridDivs.forEach((gridDiv) => {
+        gridDiv.classList.remove('fill');
+    })
+}
+
+clear.addEventListener("click", clearGrid)
+
 gridContainer.addEventListener("mousedown", () => {
     mouseDown = true;
 })
