@@ -2,17 +2,30 @@ const gridContainer = document.querySelector('.grid-container');
 const clear = document.getElementById('clear');
 const erase = document.getElementById('erase');
 const draw = document.getElementById('draw');
+const gridSlider = document.getElementById('grid-value');
+const sliderTxt = document.getElementById('grid-size')
 
 let mouseDown = false;
 let etch = true;
+let gridSize = 16;
 
-function createGrid() {
-    for (let i = 0; i < 16; i++) {
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
+function createGrid(gridSize) {
+    // Remove child nodes to create new grid
+    removeAllChildNodes(gridContainer);
+
+    for (let i = 0; i < gridSize; i++) {
         const row = document.createElement('div');
         row.classList.add('row');
 
-        for (let j = 0; j < 16; j++) {
-            const width = 300 / 16; // width and height are same for grid-container
+        for (let j = 0; j < gridSize; j++) {
+            // width and height are same for grid-container
+            const width = 300 / gridSize;
             const square = document.createElement('div');
             square.classList.add('grid-div');
             square.style.width = `${width}px`;
@@ -23,10 +36,10 @@ function createGrid() {
         gridContainer.appendChild(row);
     }
 };
+// initial grid creation
+createGrid(gridSize);
 
-createGrid();
-
-const gridDivs = document.querySelectorAll('.grid-div');
+let gridDivs = document.querySelectorAll('.grid-div');
 
 function clearGrid() {
     gridDivs.forEach((gridDiv) => {
@@ -74,7 +87,8 @@ function handleMouseOut() {
 };
 
 function fillGrid(e) {
-    e.preventDefault(); // prevents mousedown drag on a filled grid
+    // prevents mousedown drag on a filled grid
+    e.preventDefault();
     if (etch) {
         this.classList.add('fill');
     } else {
@@ -82,11 +96,28 @@ function fillGrid(e) {
     }
 };
 
-highlightSelection(etch); // highlights default draw button
+function handleGridEventListeners() {
+    gridDivs.forEach((gridDiv) => {
+        gridDiv.addEventListener("mouseover", handleMouseOver);
+        gridDiv.addEventListener("mouseout", handleMouseOut);
+        gridDiv.addEventListener("mousedown", fillGrid);
+    });
+}
+
+// highlights default draw button
+highlightSelection(etch);
 
 clear.addEventListener("click", clearGrid);
 erase.addEventListener("click", eraseDiv);
 draw.addEventListener("click", drawDiv);
+
+gridSlider.addEventListener("input", () => {
+    gridSize = gridSlider.value;
+    sliderTxt.innerText = `${gridSize} x ${gridSize}`;
+    createGrid(gridSize);
+    gridDivs = document.querySelectorAll('.grid-div');
+    handleGridEventListeners();
+});
 
 gridContainer.addEventListener("mousedown", () => {
     mouseDown = true;
@@ -96,8 +127,4 @@ gridContainer.addEventListener("mouseup", () => {
     mouseDown = false;
 });
 
-gridDivs.forEach((gridDiv) => {
-    gridDiv.addEventListener("mouseover", handleMouseOver);
-    gridDiv.addEventListener("mouseout", handleMouseOut);
-    gridDiv.addEventListener("mousedown", fillGrid);
-});
+handleGridEventListeners();
