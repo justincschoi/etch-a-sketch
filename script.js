@@ -5,8 +5,11 @@ function createGrid(gridSize) {
         const row = document.createElement('div');
         row.classList.add('row');
         for (let j = 0; j < gridSize; j++) {
+            let gridHeight = 500 / gridSize;
             const gridCell = document.createElement('div');
             gridCell.classList.add('gridCell');
+            gridCell.style.width = `${gridHeight}px`;
+            gridCell.style.height = `${gridHeight}px`;
             row.appendChild(gridCell);
         }
         gridContainer.appendChild(row);
