@@ -16,4 +16,9 @@ function createGrid(gridSize) {
     }
 }
 
+function highlightGridCell(event) {
+    event.target.classList.add('highlight');
+}
+
+gridContainer.addEventListener('mouseover', highlightGridCell);
 createGrid(16);
