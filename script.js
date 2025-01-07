@@ -1,10 +1,10 @@
 const gridContainer = document.querySelector('.gridContainer');
 
-function createGrid(rows, cols) {
-    for (let i = 0; i < rows; i++) {
+function createGrid(gridSize) {
+    for (let i = 0; i < gridSize; i++) {
         const row = document.createElement('div');
         row.classList.add('row');
-        for (let j = 0; j < cols; j++) {
+        for (let j = 0; j < gridSize; j++) {
             const gridCell = document.createElement('div');
             gridCell.classList.add('gridCell');
             row.appendChild(gridCell);
@@ -13,4 +13,4 @@ function createGrid(rows, cols) {
     }
 }
 
-createGrid(16, 16);
+createGrid(16);
