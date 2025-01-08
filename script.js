@@ -1,4 +1,6 @@
 const gridContainer = document.querySelector('.gridContainer');
+const gridButton = document.querySelector('.gridButton');
+let GRID_SIZE = 16;
 
 function createGrid(gridSize) {
     for (let i = 0; i < gridSize; i++) {
@@ -20,5 +22,20 @@ function highlightGridCell(event) {
     event.target.classList.add('highlight');
 }
 
+function clearGrid() {
+    gridContainer.innerText = '';
+}
+
+function resizeGrid() {
+    GRID_SIZE = prompt('Enter new grid size (1 - 100)');
+    if (GRID_SIZE >= 1 && GRID_SIZE <= 100) {
+        clearGrid();
+        createGrid(GRID_SIZE);
+    } else {
+        alert('Please enter a number between 1 - 100');
+    }
+}
+
 gridContainer.addEventListener('mouseover', highlightGridCell);
-createGrid(16);
+gridButton.addEventListener('click', resizeGrid);
+createGrid(GRID_SIZE);
